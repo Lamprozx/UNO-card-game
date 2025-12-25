@@ -361,7 +361,7 @@ export async function GET(request) {
         return NextResponse.json({ error: 'Game not found' }, { status: 404 });
       }
 
-      const game = Object.assign(new UNOGame(), gameDoc);
+      const game = UNOGame.fromDocument(gameDoc);
       const gameState = game.getGameState(playerId);
       
       return NextResponse.json({ gameState });
@@ -487,7 +487,7 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Game not found' }, { status: 404 });
       }
 
-      const game = Object.assign(new UNOGame(), gameDoc);
+      const game = UNOGame.fromDocument(gameDoc);
       const result = game.playCard(playerId, cardIndex, chosenColor);
 
       if (!result.success) {
@@ -520,7 +520,7 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Game not found' }, { status: 404 });
       }
 
-      const game = Object.assign(new UNOGame(), gameDoc);
+      const game = UNOGame.fromDocument(gameDoc);
       const result = game.drawCard(playerId);
 
       if (!result.success) {
@@ -552,7 +552,7 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Game not found' }, { status: 404 });
       }
 
-      const game = Object.assign(new UNOGame(), gameDoc);
+      const game = UNOGame.fromDocument(gameDoc);
       game.callUNO(playerId);
 
       await db.collection('games').replaceOne(
