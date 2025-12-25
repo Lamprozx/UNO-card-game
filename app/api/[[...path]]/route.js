@@ -319,6 +319,13 @@ class UNOGame {
     });
     return true;
   }
+
+  // Helper to restore game from database
+  static fromDocument(doc) {
+    const game = new UNOGame(doc.roomId, [], doc.maxPlayers);
+    Object.assign(game, doc);
+    return game;
+  }
 }
 
 // API Routes
